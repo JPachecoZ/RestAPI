@@ -26,7 +26,9 @@ router.get('/users/:id', (req, res) => {
     userSchema
       .findById(id)
       .then((data) => res.json(data))
-      .catch((error) => res.json({ message: error }))
+      .catch((error) => {
+        res.status(404).json({message: error.message})
+    })
 })
 
 //update user
@@ -36,7 +38,7 @@ router.put('/users/:id', (req, res) => {
     userSchema
       .updateOne({ _id: id }, { $set: {email, password} })
       .then((data) => res.json(data))
-      .catch((error) => res.json({ message: error }))
+      .catch((error) => res.json({ message: error.message }))
 })
 
 //delete user

@@ -12,4 +12,9 @@ const userSchema = mongoose.Schema({
 }
 )
 
+userSchema.path('email').validate(async (email) =>{
+    const emailCount = await mongoose.models.User.countDocuments({email})
+    return !emailCount
+}, 'Email already exists')
+
 module.exports = mongoose.model('User', userSchema)
