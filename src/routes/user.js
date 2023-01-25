@@ -7,9 +7,9 @@ const userRouter = express.Router()
 userRouter.post('/users', createUser)
 
 //show
-userRouter.get('/profile', showUser)
+userRouter.get('/profile/:id', showUser)
 
 //update user
-userRouter.patch('/profile', updateUser)
+userRouter.put('/profile/:id', updateUser)
 
 module.exports = userRouter
