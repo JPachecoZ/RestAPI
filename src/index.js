@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyparser = require('body-parser')
 require('dotenv').config()
+const validateToken = require('./middlewares/validateToken')
 const sessionRouter = require('./routes/session')
 const orderRouter = require('./routes/order')
 const userRouter = require('./routes/user')
@@ -12,11 +14,12 @@ const port = process.env.PORT || 8000
 mongoose.set('strictQuery', true)
 
 //middleware
-app.use(express.json())
-app.use('/api', userRouter)
-app.use('/api', orderRouter)
+app.use(bodyparser.urlencoded({extended: false}))
+app.use(bodyparser.json())
 app.use('/api', sessionRouter)
-app.use('/api', productRouter)
+app.use('/api', validateToken, userRouter)
+app.use('/api', validateToken, orderRouter)
+app.use('/api', validateToken, productRouter)
 
 app.get('/', (req, res) => {
     res.send('Welcome to my API')
