@@ -1,7 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
-const userRoutes = require('./routes/user')
+const sessionRouter = require('./routes/session')
+const orderRouter = require('./routes/order')
+const userRouter = require('./routes/user')
+const productRouter = require('./routes/product')
 
 //setup
 const app = express()
@@ -10,7 +13,10 @@ mongoose.set('strictQuery', true)
 
 //middleware
 app.use(express.json())
-app.use('/api', userRoutes)
+app.use('/api', userRouter)
+app.use('/api', orderRouter)
+app.use('/api', sessionRouter)
+app.use('/api', productRouter)
 
 app.get('/', (req, res) => {
     res.send('Welcome to my API')
