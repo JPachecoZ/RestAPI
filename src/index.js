@@ -17,7 +17,7 @@ mongoose.set('strictQuery', true)
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
 app.use('/api', sessionRouter)
-app.use('/api', validateToken, userRouter)
+app.use('/api', userRouter)
 app.use('/api', validateToken, orderRouter)
 app.use('/api', validateToken, productRouter)
 
