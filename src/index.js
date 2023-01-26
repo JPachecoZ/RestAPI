@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
+const cors = require('cors')
 require('dotenv').config()
 const validateToken = require('./middlewares/validateToken')
 const sessionRouter = require('./routes/session')
@@ -14,6 +15,7 @@ const port = process.env.PORT || 8000
 mongoose.set('strictQuery', true)
 
 //middleware
+app.use(cors())
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
 app.use('/api', sessionRouter)
