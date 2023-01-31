@@ -6,6 +6,18 @@ const orderSchema = new Schema({
         type: String,
         required: true
     },
+    total: {
+        type: Number,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    created_date: {
+        type: Date,
+        default: Date.now,
+    },
     user_id: {
         type: String,
         required: true
@@ -19,6 +31,9 @@ const orderSchema = new Schema({
                 type: String
             },
             quantity: {
+                type: Number
+            },
+            price: {
                 type: Number
             }
         }
