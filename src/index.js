@@ -5,9 +5,8 @@ const cors = require('cors')
 require('dotenv').config()
 const validateToken = require('./middlewares/validateToken')
 const sessionRouter = require('./routes/session')
-const orderRouter = require('./routes/order')
-const userRouter = require('./routes/user')
-const productRouter = require('./routes/product')
+const documentRouter = require('./routes/document')
+
 
 //setup
 const app = express()
@@ -19,11 +18,10 @@ app.use(cors())
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
 app.use('/api', sessionRouter)
-app.use('/api', userRouter)
-app.use('/api', validateToken, orderRouter)
-app.use('/api', validateToken, productRouter)
+app.use('/api', validateToken, documentRouter)
 
 app.get('/', (req, res) => {
+
     res.send('Welcome to my API')
 })
 
@@ -37,4 +35,8 @@ mongoose.connect(process.env.MONGODB_URI, {dbName: 'MyApp'})
 
 app.listen(port, () =>{
     console.log('Server listening at port', port)
+    fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_AUTH_ENDPOINT}`,{
+        method: "POST",
+        body: JSON.stringify({username: process.env.SIGN_USERNAME, password: process.env.SIGN_PASSWORD})
+    }).then((response) => console.log(response.headers.get("Authorization")))
 })
