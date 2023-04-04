@@ -38,5 +38,11 @@ app.listen(port, () =>{
     fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_AUTH_ENDPOINT}`,{
         method: "POST",
         body: JSON.stringify({username: process.env.SIGN_USERNAME, password: process.env.SIGN_PASSWORD})
-    }).then((response) => console.log(response.headers.get("Authorization")))
+    })
+    .then((response) => {
+        process.env.SIGN_AUTH_KEY = (response.headers.get("Authorization").split(" ")[1])
+    })
+    .catch((error)=>{
+        console.error(error)
+    })
 })
