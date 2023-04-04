@@ -35,8 +35,8 @@ mongoose.connect(process.env.MONGODB_URI, {dbName: 'MyApp'})
 
 app.listen(port, () =>{
     console.log('Server listening at port', port)
-    fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_AUTH_ENDPOINT}`,{
-        method: "POST",
-        body: JSON.stringify({username: process.env.SIGN_USERNAME, password: process.env.SIGN_PASSWORD})
-    }).then((response) => console.log(response.headers.get("Authorization")))
+    // fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_AUTH_ENDPOINT}`,{
+    //     method: "POST",
+    //     body: JSON.stringify({username: process.env.SIGN_USERNAME, password: process.env.SIGN_PASSWORD})
+    // }).then((response) => console.log(response.headers.get("Authorization")))
 })
