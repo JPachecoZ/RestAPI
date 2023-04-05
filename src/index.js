@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
 app.use('/api', validateApiKey, documentRouter)
 
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
     res.send(req.body)
 })
 
