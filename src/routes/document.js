@@ -1,16 +1,9 @@
 const express = require('express')
-const validateToken = require('../middlewares/validateToken')
-const { createUser, showUser, updateUser } = require('../controllers/userControllers')
+const { createSignRequest } = require('../controllers/documentControllers')
 
 const documentRouter = express.Router()
 
 //create documentRequest
-documentRouter.post('/documents', createUser)
-
-//show
-documentRouter.get('/profile/:id', validateToken, showUser)
-
-//update user
-documentRouter.put('/profile/:id', validateToken, updateUser)
+documentRouter.post('/document', createSignRequest)
 
 module.exports = documentRouter

@@ -1,12 +1,28 @@
-const createSignRequest = async(req, res) => {
+const jsonData = require('./test.json')
 
+const createSignRequest = async(req, res) => {
+    try{
+        const response = await fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_CREATE_SIGN_REQUEST}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `${process.env.SIGN_AUTH_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonData)
+        })
+        const data = await response.json()
+        return res.status(200).json(data)
+    } 
+    catch(error){
+        return res.status(500).json(error)
+    }
 }
 
 const getWorkflows = async(req, res) => {
     try{
     const response = await fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_WORKFLOW_ENDPOINT}`,
     {headers: {
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZXh0ZXJubzMiLCJpYXQiOjE2ODA2MTIwNjgsImV4cCI6MTY4MTQ3NjA2OH0.xqdhN5eGJRoPpmX8LAurELM06DIO-X6dSyBKnfofnDlijpCc9ZSx-ZDH3Al_99JGDKjWMdrBr7V9sdbcvXDe1A"
+        "Authorization": `${process.env.SIGN_AUTH_KEY}`
     }})
     const data = await response.json()
         return data._embedded.workflows
@@ -14,4 +30,9 @@ const getWorkflows = async(req, res) => {
     catch(error){
         return error
     }
+}
+
+module.exports = {
+    createSignRequest,
+    getWorkflows
 }

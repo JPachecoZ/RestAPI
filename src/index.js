@@ -6,8 +6,6 @@ const cors = require('cors')
 require('dotenv').config()
 const validateApiKey = require('./middlewares/validateApiKey');
 const documentRouter = require('./routes/document')
-// const validateToken = require('./middlewares/validateToken')
-// const sessionRouter = require('./routes/session')
 
 //setup
 const app = express()
@@ -18,12 +16,7 @@ mongoose.set('strictQuery', true)
 app.use(cors())
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
-// app.use('/api', sessionRouter)
-// app.use('/api', validateToken, documentRouter)
-
-app.get('/private-route', validateApiKey, (req, res) => {
-    res.json({ message: 'Bienvenido a la ruta protegida' });
-});
+app.use('/api', validateApiKey, documentRouter)
 
 app.get('/', (req, res) => {
     res.send('Welcome to my API')
