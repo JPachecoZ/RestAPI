@@ -4,6 +4,7 @@ const createSignRequest = async(req, res) => {
     console.log(">>>REQUEST BODY: ", req.body)
     console.log(">>>REQUEST HEADERS: ", req.headers)
     const rawParticipantData = req.body.participants.split(',')
+    console.log(">>>PARTICIPANTS: ", rawParticipantData)
     const dataToSend = {
         type: 1,
         subject: "FIRMA DE VENTA",
