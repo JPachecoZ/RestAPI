@@ -19,7 +19,7 @@ app.use(bodyparser.json())
 app.use('/api', validateApiKey, documentRouter)
 
 app.get('/', (req, res) => {
-    res.send('Welcome to my API')
+    res.send(req.body)
 })
 
 mongoose.connect(process.env.MONGODB_URI, {dbName: 'MyApp'})
