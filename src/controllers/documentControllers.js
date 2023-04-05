@@ -19,6 +19,8 @@ const createSignRequest = async(req, res) => {
                     lastname: rawParticipantData[3],
                     email: rawParticipantData[4],
                     cellphone: rawParticipantData[5],
+                    enterpriseDocumentNumber: "",
+                    jobDescription: "",
                 },
                 orderParticipant: 1
             }
@@ -33,6 +35,7 @@ const createSignRequest = async(req, res) => {
     console.log(">>>OBJETO STRING: ", JSON.stringify(dataToSend))
 
     try{
+        console.log(">>>INICIANDO TRY:")
         const response = await fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_CREATE_SIGN_REQUEST}`, {
             method: "POST",
             headers: {
@@ -41,6 +44,8 @@ const createSignRequest = async(req, res) => {
             },
             body: JSON.stringify(dataToSend)
         })
+
+        console.log(">>>RESPONSE: ", response)
         const data = await response.json()
         return res.status(200).json(data)
     } 
