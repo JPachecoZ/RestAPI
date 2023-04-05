@@ -1,4 +1,5 @@
 const jsonData = require('./test.json')
+const fetch = require("node-fetch")
 
 const createSignRequest = async(req, res) => {
     console.log(">>>REQUEST BODY: ", req.body)
