@@ -44,7 +44,7 @@ app.listen(port, () =>{
         body: JSON.stringify({username: process.env.SIGN_USERNAME, password: process.env.SIGN_PASSWORD})
     })
     .then((response) => {
-        process.env.SIGN_AUTH_KEY = (response.headers.get("Authorization").split(" ")[1])
+        process.env.SIGN_AUTH_KEY = (response.headers.get("Authorization"))
     })
     .catch((error)=>{
         console.error(error)
