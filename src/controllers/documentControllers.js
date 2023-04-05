@@ -1,6 +1,7 @@
 const jsonData = require('./test.json')
 
 const createSignRequest = async(req, res) => {
+    console.log(">>>REQUEST BODY: ", JSON.parse(req.body))
     console.log(">>>REQUEST BODY: ", req.body)
     console.log(">>>REQUEST HEADERS: ", req.headers)
     try{
