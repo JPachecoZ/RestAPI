@@ -1,9 +1,8 @@
 const jsonData = require('./test.json')
 
 const createSignRequest = async(req, res) => {
-    console.log(req)
-    console.log(req.body)
-    console.log(req.headers)
+    console.log(">>>REQUEST BODY: ", req.body)
+    console.log(">>>REQUEST HEADERS: ", req.headers)
     try{
         const response = await fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_CREATE_SIGN_REQUEST}`, {
             method: "POST",
