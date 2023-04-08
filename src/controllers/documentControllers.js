@@ -10,7 +10,7 @@ const createSignRequest = async(req, res) => {
         return {
             personByPersonId: {
                 type: participant.type_text,
-                documentType: participant.documenttype_text,
+                documentType: 1,
                 documentNumber: participant.documentnumber_text,
                 firstname: participant.firstname_text,
                 lastname: participant.lastname_text,
