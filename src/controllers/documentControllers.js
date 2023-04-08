@@ -4,32 +4,33 @@ const fetch = require("node-fetch")
 const createSignRequest = async(req, res) => {
     console.log(">>>REQUEST BODY: ", req.body)
     console.log(">>>REQUEST HEADERS: ", req.headers)
-    const rawParticipantData = req.body.participants.split(',')
+    const rawParticipantData = req.body.participants
     console.log(">>>PARTICIPANTS: ", rawParticipantData)
+    const mappedParticipants = rawParticipantData.map((participant, index) => {
+        return {
+            personByPersonId: {
+                type: participant.type_text,
+                documentType: participant.documenttype_text,
+                documentNumber: participant.documentnumber_text,
+                firstname: participant.firstname_text,
+                lastname: participant.lastname_text,
+                email: participant.email_text,
+                cellphone: participant.cellphone_text,
+                enterpriseDocumentNumber: "",
+                jobDescription: "",
+            },
+            orderParticipant: index + 1
+        };
+    });
     const dataToSend = {
         type: 1,
         subject: "FIRMA DE VENTA",
         workflowId: 324,
-        participants: [
-            {
-                personByPersonId: {
-                    type: 1,
-                    documentType: rawParticipantData[0],
-                    documentNumber: rawParticipantData[1],
-                    firstname: rawParticipantData[2],
-                    lastname: rawParticipantData[3],
-                    email: rawParticipantData[4],
-                    cellphone: rawParticipantData[5],
-                    enterpriseDocumentNumber: "",
-                    jobDescription: "",
-                },
-                orderParticipant: 1
-            }
-        ],
+        participants: mappedParticipants,
         files: [
             {
                 name: req.body.fileName,
-                base64: req.body.file
+                base64: req.body.fileEncoded
             }
         ]
     }
