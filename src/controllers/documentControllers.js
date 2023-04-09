@@ -1,7 +1,8 @@
-const jsonData = require('./test.json')
 const fetch = require("node-fetch")
 
 const createSignRequest = async(req, res) => {
+
+    const state = ["received", "sent"]
     console.log(">>>REQUEST BODY: ", req.body)
     console.log(">>>REQUEST HEADERS: ", req.headers)
     const rawParticipantData = req.body.participants
