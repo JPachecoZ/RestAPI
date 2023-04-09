@@ -11,6 +11,9 @@ const documentSchema = new Schema({
         type: String,
         required: true,
     },
+    state: {
+        type: String,
+    },
     iofe_id: {
         type: String,
         unique: true,
