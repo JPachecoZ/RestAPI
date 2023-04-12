@@ -1,10 +1,25 @@
-const jsonData = require('./test.json')
 const fetch = require("node-fetch")
+const documentSchema = require("../models/document")
 
 const createSignRequest = async(req, res) => {
+
+    //RECEIVE INFORMATION FROM BUBBLE AND LOG IT
     console.log(">>>REQUEST BODY: ", req.body)
     console.log(">>>REQUEST HEADERS: ", req.headers)
-    const rawParticipantData = req.body.participants
+
+    const documentData = {...req.body}
+    // try {
+    //     const documentExist = await documentSchema.findOne({bubble_id: documentData.bubble_id})
+    //     if (documentExist) throw new Error('Document already exists')
+
+    //     const newDocument = new documentSchema({...documentData, state: "received"})
+    //     newDocument.save()
+    // } catch (error) {
+    //     res.json({ error: error.message })
+    // }
+
+    //CREATE REQUEST FOR IOFE
+    const rawParticipantData = documentData.participants
     console.log(">>>PARTICIPANTS: ", rawParticipantData)
     const mappedParticipants = rawParticipantData.map((participant, index) => {
         return {
@@ -29,13 +44,14 @@ const createSignRequest = async(req, res) => {
         participants: mappedParticipants,
         files: [
             {
-                name: req.body.fileName,
-                base64: req.body.fileEncoded
+                name: documentData.fileName,
+                base64: documentData.fileEncoded
             }
         ]
     }
     console.log(">>>OBJETO STRING: ", JSON.stringify(dataToSend))
 
+    
     try{
         console.log(">>>INICIANDO TRY:")
         const response = await fetch(`${process.env.SIGN_BASE_URL}${process.env.SIGN_CREATE_SIGN_REQUEST}`, {
@@ -71,7 +87,13 @@ const getWorkflows = async(req, res) => {
     }
 }
 
+const receiveSignedDocument = async(req, res) => {
+    console.log(req.body)
+}
+
 module.exports = {
     createSignRequest,
-    getWorkflows
+    getWorkflows,
+    receiveSignedDocument
 }
+

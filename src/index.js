@@ -4,7 +4,7 @@ const bodyparser = require('body-parser')
 const fetch = require("node-fetch")
 const cors = require('cors')
 require('dotenv').config()
-const validateApiKey = require('./middlewares/validateApiKey');
+
 const documentRouter = require('./routes/document')
 
 //setup
@@ -16,7 +16,7 @@ mongoose.set('strictQuery', true)
 app.use(cors())
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(bodyparser.json())
-app.use('/api', validateApiKey, documentRouter)
+app.use('/api', documentRouter)
 
 app.get('/', (req, res) => {
     res.send('Welcome to my API')
