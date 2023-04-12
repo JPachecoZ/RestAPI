@@ -40,7 +40,7 @@ const createSignRequest = async(req, res) => {
     const dataToSend = {
         type: 1,
         subject: "FIRMA DE VENTA",
-        workflowId: 324,
+        workflowId: 367,
         participants: mappedParticipants,
         files: [
             {
