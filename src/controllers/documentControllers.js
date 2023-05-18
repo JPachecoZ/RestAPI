@@ -2,14 +2,15 @@ const fetch = require("node-fetch")
 const documentSchema = require("../models/document")
 
 const createSignRequest = async(req, res) => {
-    if (Object.keys(req.body).length === 0) {
-        return res.status(400).json("Empty Body")
-    }
+
 
     //RECEIVE INFORMATION FROM BUBBLE AND LOG IT
     console.log(">>>REQUEST BODY: ", req.body)
     console.log(">>>REQUEST HEADERS: ", req.headers)
 
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json("Empty Body")
+    }
     const documentData = {...req.body}
 
     // try {
