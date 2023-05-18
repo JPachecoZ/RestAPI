@@ -29,13 +29,13 @@ const createSignRequest = async(req, res) => {
     const mappedParticipants = rawParticipantData.map((participant, index) => {
         return {
             personByPersonId: {
-                type: participant.type_text,
+                type: 1,
                 documentType: 1,
-                documentNumber: participant.documentnumber_text,
-                firstname: participant.firstname_text,
-                lastname: participant.lastname_text,
-                email: participant.email_text,
-                cellphone: participant.cellphone_text,
+                documentNumber: participant.ruc_dni_text,
+                firstname: participant["1_nombres_text"],
+                lastname: participant["1_apellidos_text"],
+                email: participant.correo_text,
+                cellphone: participant.telefono_text,
                 enterpriseDocumentNumber: "",
                 jobDescription: "",
             },
